@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página visible en la pestaña del navegador -->
+    <title>Taller Vehicular - Órdenes</title>
+    <!-- Enlace al archivo CSS principal para estilos -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Enlace a la biblioteca Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Contenedor principal del dashboard -->
+    <div class="dashboard">
+        <!-- Cabecera del dashboard - contiene el título principal -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Gestion de Ordenes de Trabajo</h1>
+            </div>
+        </header>
+
+        <!-- Barra lateral con navegación principal -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <!-- Menú de navegación principal con iconos -->
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
+                    <li><a href="vehiculos.html"><i class="fas fa-car"></i> Vehículos</a></li>
+                    <li class="active"><a href="ordenes.html"><i class="fas fa-clipboard-list"></i> Órdenes</a></li>
+                    <li><a href="stock.html"><i class="fas fa-boxes"></i> Stock</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal de la página -->
+        <main class="content">
+            <!-- Encabezado con título y acciones -->
+            <div class="content-header">
+                <h2>Órdenes de Trabajo</h2>
+                <div class="actions">
+                    <!-- Buscador de órdenes/clientes -->
+                    <div class="search-box">
+                        <input type="text" placeholder="Buscar cliente...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <!-- Botón para crear nueva orden -->
+                    <button class="btn-primary" id="add-order">
+                        <i class="fas fa-plus"></i> Nueva Orden
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros para órdenes de trabajo -->
+            <div class="filters">
+                <!-- Filtro por estado de la orden -->
+                <div class="filter-group">
+                    <label for="status-filter">Filtrar por estado:</label>
+                    <select id="status-filter">
+                        <option value="all">Todos</option>
+                        <option value="pending">Pendientes</option>
+                        <option value="in-progress">En progreso</option>
+                        <option value="completed">Completadas</option>
+                    </select>
+                </div>
+                <!-- Filtro por fecha -->
+                <div class="filter-group">
+                    <label for="date-filter">Filtrar por fecha:</label>
+                    <input type="date" id="date-filter">
+                </div>
+            </div>
+
+            <!-- Tabla para mostrar las órdenes de trabajo -->
+            <div class="table-container">
+                <table id="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Vehículo</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación de la tabla -->
+            <div class="pagination">
+                <button disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="active">1</span>
+                <span>2</span>
+                <span>3</span>
+                <button><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </main>
+
+        <!-- Modal para agregar/editar orden -->
+        <div class="modal" id="order-modal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3>Nueva Orden de Trabajo</h3>
+                    <!-- Botón para cerrar el modal -->
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para datos de la orden -->
+                    <form id="order-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <!-- Selector de cliente - Se carga dinámicamente con los clientes registrados -->
+                                <label for="order-client">Cliente</label>
+                                <select id="order-client" required>
+                                    <option value="">Seleccione un cliente</option>
+                                </select>
+                            </div>
+                            <!-- Selector de vehículo - Se carga basado en el cliente seleccionado -->
+                            <div class="form-group">
+                                <label for="order-vehicle">Vehículo</label>
+                                <select id="order-vehicle" required>
+                                    <option value="">Seleccione un vehículo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <!-- Fecha de la orden -->
+                            <div class="form-group">
+                                <label for="order-date">Fecha</label>
+                                <input type="date" id="order-date" required>
+                            </div>
+                            <!-- Estado de la orden -->
+                            <div class="form-group">
+                                <label for="order-status">Estado</label>
+                                <select id="order-status" required>
+                                    <option value="pending">Pendiente</option>
+                                    <option value="in-progress">En progreso</option>
+                                    <option value="completed">Completada</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Descripción del trabajo a realizar -->
+                        <div class="form-group">
+                            <label for="order-description">Descripción del trabajo</label>
+                            <textarea id="order-description" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Items de trabajo</label>
+                            <div class="items-list">
+                                <!-- Encabezados de la lista de items -->
+                                <div class="item-header">
+                                    <span>Descripción</span>
+                                    <span>Cantidad</span>
+                                    <span>Precio</span>
+                                    <span>Total</span>
+                                    <span></span>
+                                </div>
+                                <!-- Plantilla para cada item - Se clonará mediante JavaScript -->
+                                <div class="item-row" id="item-template">
+                                    <input type="text" placeholder="Descripción" class="item-desc">
+                                    <input type="number" placeholder="Cant" min="1" value="1" class="item-qty">
+                                    <input type="number" placeholder="Precio" min="0" step="0.01" class="item-price">
+                                    <span class="item-total">0.00</span>
+                                    <button type="button" class="btn-icon remove-item"><i
+                                            class="fas fa-trash"></i></button>
+                                </div>
+                                <!-- Botón para agregar más items -->
+                                <button type="button" class="btn-secondary" id="add-item">
+                                    <i class="fas fa-plus"></i> Agregar Item
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sección para descuentos y total -->
+                        <div class="form-row total-row">
+                            <div class="form-group">
+                                <label for="order-discount">Descuento</label>
+                                <input type="number" id="order-discount" min="0" step="0.01" value="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label>Total General</label>
+                                <!-- Muestra el total calculado dinámicamente con JavaScript -->
+                                <div class="total-amount">$0.00</div>
+                            </div>
+                        </div>
+
+                        <!-- Botones de acción del formulario -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary close-modal">Cancelar</button>
+                            <button type="submit" class="btn-primary">Guardar Orden</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts para la funcionalidad -->
+    <script src="js/main.js"></script> <!-- Script común compartido entre páginas -->
+    <script src="js/ordenes.js"></script> <!-- Script específico para la gestión de órdenes -->
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 id="confirm-title">Confirmar acción</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">¿Estás seguro de realizar esta acción?</p>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="confirm-cancel">Cancelar</button>
+                    <button type="button" class="btn-primary" id="confirm-ok">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

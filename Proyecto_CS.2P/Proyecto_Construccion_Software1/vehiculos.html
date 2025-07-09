@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página visible en la pestaña del navegador -->
+    <title>Taller Vehicular - Vehículos</title>
+    <!-- Enlace al archivo CSS principal para estilos -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Enlace a la biblioteca Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Contenedor principal del dashboard -->
+    <div class="dashboard">
+        <!-- Cabecera del dashboard - contiene el título principal -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Gestion de Vehiculos</h1>
+            </div>
+        </header>
+        <!-- Barra lateral con navegación principal -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <!-- Menú de navegación principal con iconos -->
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
+                    <li class="active"><a href="vehiculos.html"><i class="fas fa-car"></i> Vehículos</a></li>
+                    <li><a href="ordenes.html"><i class="fas fa-clipboard-list"></i> Órdenes</a></li>
+                    <li><a href="stock.html"><i class="fas fa-boxes"></i> Stock</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal de la página -->
+        <main class="content">
+            <!-- Encabezado con título y acciones -->
+            <div class="content-header">
+                <h2>Listado de Vehículos</h2>
+                <div class="actions">
+                    <!-- Contenedor de búsqueda para vehículos -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar vehículo..." id="search-vehicle">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <!-- Botón para agregar un nuevo vehículo -->
+                    <button class="btn-primary" id="add-vehicle">
+                        <i class="fas fa-plus"></i> Nuevo Vehículo
+                    </button>
+                </div>
+            </div>
+            <!-- Filtros para vehículos -->
+            <div class="filters">
+                <div class="filter-group">
+                    <!-- Filtro por tipo de vehículo -->
+                    <label for="type-filter">Tipo de vehículo:</label>
+                    <select id="type-filter">
+                        <option value="all">Todos</option>
+                        <option value="Automovil">Automóvil</option>
+                        <option value="Camioneta">Camioneta</option>
+                        <option value="Camion">Camión</option>
+                        <option value="Autobus">Autobús</option>
+                        <option value="Furgoneta">Furgoneta</option>
+                        <option value="Comercial">Vehículo Comercial</option>
+                        <option value="Maquinaria">Maquinaria Pesada</option>
+                        <option value="Minivan">Minivan</option>
+                    </select>
+                </div>
+                <!-- Filtro por año del vehículo -->
+                <div class="filter-group">
+                    <label for="year-filter">Año:</label>
+                    <input type="number" id="year-filter" placeholder="Filtrar por año" min="1900" max="2023">
+                </div>
+                <!-- Botón para limpiar todos los filtros aplicados -->
+                <button class="btn-primary" id="clear-filters">
+                    <i class="fas fa-times"></i> Limpiar filtros
+                </button>
+            </div>
+
+            <!-- Contenedor de la tabla principal de vehículos -->
+            <div class="table-container">
+                <table id="vehicles-table">
+                    <thead>
+                        <tr>
+                            <!-- Encabezados de la tabla - definen las columnas de información -->
+                            <th>ID</th>
+                            <th>Marca/Modelo</th>
+                            <th>Tipo</th>
+                            <th>Año</th>
+                            <th>Placa</th>
+                            <th>Dueño</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Controles de paginación para navegar entre páginas de resultados -->
+            <div class="pagination">
+                <button disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="active">1</span>
+                <span>2</span>
+                <span>3</span>
+                <button><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </main>
+
+        <!-- Modal para agregar/editar vehículo -->
+        <div class="modal" id="vehicle-modal">
+            <!-- Encabezado del modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-vehicle-title">Nuevo Vehículo</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="vehicle-form">
+                        <!-- Campos del formulario para datos del vehículo -->
+                        <!-- Campos obligatorios marcados con * -->
+                        <div class="form-group">
+                            <label for="vehicle-brand">Marca*</label>
+                            <input type="text" id="vehicle-brand" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-model">Modelo*</label>
+                            <input type="text" id="vehicle-model" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-type">Tipo de vehículo*</label>
+                            <select id="vehicle-type" required>
+                                <option value="">Seleccione un tipo</option>
+                                <option value="Automovil">Automóvil</option>
+                                <option value="Camioneta">Camioneta</option>
+                                <option value="Camion">Camión</option>
+                                <option value="Autobus">Autobús</option>
+                                <option value="Furgoneta">Furgoneta</option>
+                                <option value="Comercial">Vehículo Comercial</option>
+                                <option value="Maquinaria">Maquinaria Pesada</option>
+                                <option value="Minivan">Minivan</option>
+                            </select>
+                        </div>
+
+                        <!-- Fila de 2 campos juntos para año y placa -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vehicle-year">Año</label>
+                                <input type="number" id="vehicle-year" min="1900" max="2023">
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicle-plate">Placa</label>
+                                <input type="text" id="vehicle-plate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-owner">Dueño*</label>
+                            <select id="vehicle-owner" required>
+
+                                <option value="">Seleccione un cliente</option>
+                                <!-- Opciones de clientes se cargarán dinámicamente desde JavaScript -->
+                            </select>
+                        </div>
+                        <!-- Botones de acción del formulario -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary close-modal">Cancelar</button>
+                            <button type="submit" class="btn-primary">Guardar Vehículo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts JavaScript para la funcionalidad de la página -->
+    <script src="js/main.js"></script> <!-- Script principal compartido -->
+    <script src="js/vehiculos.js"></script> <!-- Script específico para gestión de vehículos -->
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 id="confirm-title">Confirmar acción</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">¿Estás seguro de realizar esta acción?</p>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="confirm-cancel">Cancelar</button>
+                    <button type="button" class="btn-primary" id="confirm-ok">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

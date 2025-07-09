@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página, visible en la pestaña del navegador -->
+    <title>Taller Vehicular - Inicio</title>
+    <!-- Enlace al archivo CSS principal para estilos -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Enlace a la biblioteca Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Contenedor principal del dashboard - estructura base de toda la aplicación -->
+    <div class="dashboard">
+        <!-- Cabecera del dashboard - contiene el título principal y logo -->
+        <header class="dashboard-header">
+            <div class="logo-container">
+                <!-- Logo corporativo de la aplicación -->
+                <img src="img/LogoTaller.png" alt="Logo Taller Vehicular" class="logo">
+                <!-- Título principal con resaltado en "PRO" mediante un span -->
+                <h1>Taller Vehicular <span>PRO</span></h1>
+            </div>
+
+            <!-- Botón de cerrar sesión -->
+            <button id="logout-btn" class="styleLogin">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </header>
+
+
+        <!-- Barra lateral con navegación principal - presente en todas las páginas -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <!-- Menú de navegación principal con iconos de Font Awesome -->
+                    <!-- La clase "active" indica la página actual (inicio) -->
+                    <li class="active"><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
+                    <li><a href="vehiculos.html"><i class="fas fa-car"></i> Vehículos</a></li>
+                    <li><a href="ordenes.html"><i class="fas fa-clipboard-list"></i> Órdenes</a></li>
+                    <li><a href="stock.html"><i class="fas fa-boxes"></i> Stock</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Sección de bienvenida - mensaje introductorio para el usuario -->
+        <main class="dashboard-main">
+            <div class="welcome-section">
+                <h2>Bienvenido al Sistema de Gestión Vehicular</h2>
+                <p>Seleccione un módulo para comenzar</p>
+            </div>
+
+            <!-- Contenedor de módulos - muestra las principales secciones como tarjetas navegables -->
+            <div class="modules-container">
+                <!-- Grid de tarjetas de módulos - organiza visualmente las opciones principales -->
+                <div class="modules-grid">
+                    <!-- Tarjeta para el módulo de Clientes -->
+                    <a href="clientes.html" class="module-card">
+                        <div class="module-icon client">
+                            <!-- Icono representativo del módulo -->
+                            <img src="img/client-icon.png" alt="Clientes">
+                        </div>
+                        <h3>Clientes</h3>
+                        <p>Gestión de Clientes del Taller</p>
+                        <!-- Estadísticas del módulo - se actualizarán dinámicamente con JavaScript -->
+                        <div class="module-stats">
+                            <span id="clientes-badge">0 registros</span>
+                        </div>
+                    </a>
+
+                    <!-- Tarjeta para el módulo de Vehículos -->
+                    <a href="vehiculos.html" class="module-card">
+                        <div class="module-icon vehicle">
+                            <img src="img/car-icon.png" alt="Vehículos">
+                        </div>
+                        <h3>Vehículos</h3>
+                        <p>Gestión de Vehículos</p>
+                        <div class="module-stats">
+                            <span id="vehiculos-badge">0 registros</span>
+                        </div>
+                    </a>
+
+                    <!-- Tarjeta para el módulo de Órdenes -->
+                    <a href="ordenes.html" class="module-card">
+                        <div class="module-icon order">
+                            <img src="img/order-icon.png" alt="Órdenes">
+                        </div>
+                        <h3>Órdenes</h3>
+                        <p>Gestión de Ordenes de Trabajo</p>
+                        <div class="module-stats">
+                            <span id="ordenes-badge">0 registros</span>
+                        </div>
+                    </a>
+
+                    <!-- Tarjeta para el módulo de Stock/Inventario -->
+                    <a href="stock.html" class="module-card">
+                        <div class="module-icon stock">
+                            <img src="img/stock-icon.png" alt="Stock">
+                        </div>
+                        <h3>Stock</h3>
+                        <p>Gestión de Inventario</p>
+                        <div class="module-stats">
+                            <span id="stock-badge">0 registros</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Pie de página con información de copyright -->
+        <footer class="dashboard-footer">
+            <!-- El año se actualizará automáticamente mediante JavaScript (main.js) -->
+            <p>Taller Vehicular PRO © <span id="current-year">2023</span> - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <!-- Scripts de JavaScript para la funcionalidad -->
+    <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 id="confirm-title">Confirmar acción</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">¿Estás seguro de realizar esta acción?</p>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="confirm-cancel">Cancelar</button>
+                    <button type="button" class="btn-primary" id="confirm-ok">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

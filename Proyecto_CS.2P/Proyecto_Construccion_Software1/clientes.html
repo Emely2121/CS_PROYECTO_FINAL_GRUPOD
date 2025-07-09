@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página visible en la pestaña del navegador -->
+    <title>Taller Vehicular - Clientes</title>
+    <!-- Referencia al archivo CSS principal para estilos -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Biblioteca Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Contenedor principal del dashboard -->
+    <div class="dashboard">
+        <!-- Cabecera con título principal -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Gestion de Cliente</h1>
+            </div>
+        </header>
+
+        <!-- Barra lateral de navegación -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <!-- Menú de navegación principal con íconos -->
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <!-- Clase 'active' para indicar la página actual -->
+                    <li class="active"><a href="clientes.html"><i class="fas fa-users"></i> Clientes</a></li>
+                    <li><a href="vehiculos.html"><i class="fas fa-car"></i> Vehículos</a></li>
+                    <li><a href="ordenes.html"><i class="fas fa-clipboard-list"></i> Órdenes</a></li>
+                    <li><a href="stock.html"><i class="fas fa-boxes"></i> Stock</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal de la página -->
+        <main class="content">
+            <!-- Encabezado con título y acciones -->
+            <div class="content-header">
+                <h2>Listado de Clientes</h2>
+                <div class="actions">
+                    <!-- Contenedor de búsqueda con dos opciones: por nombre y por cédula -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar cliente..." id="search-name">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar por cédula..." id="search-cedula">
+                            <button><i class="fas fa-id-card"></i></button>
+                        </div>
+                    </div>
+                    <!-- Botón para agregar un nuevo cliente -->
+                    <button class="btn-primary" id="add-client" style="padding: 10px 20px;">
+                        <i class="fas fa-plus"></i> Nuevo Cliente
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor de tabla para mostrar clientes -->
+            <div class="table-container single-page">
+                <table id="clients-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- Modal para agregar/editar clientes - Se muestra al hacer clic en el botón Nuevo Cliente o al editar -->
+        <div class="modal" id="client-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Nuevo Cliente</h3>
+                    <!-- Botón para cerrar el modal -->
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="client-form">
+                        <!-- Formulario para datos del cliente -->
+                        <div class="form-group">
+                            <label for="client-name">Nombre Completo*</label>
+                            <input type="text" id="client-name" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-cedula">Cédula*</label>
+                                <input type="text" id="client-cedula" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-phone">Teléfono*</label>
+                                <input type="tel" id="client-phone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-email">Email</label>
+                                <input type="email" id="client-email">
+                            </div>
+                            <div class="form-group">
+                                <label for="client-address">Dirección</label>
+                                <input type="text" id="client-address">
+                            </div>
+                        </div>
+
+                        <!-- Botones de acción del formulario -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary close-modal">Cancelar</button>
+                            <button type="submit" class="btn-primary">Guardar Cliente</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts para la funcionalidad -->
+    <script src="js/main.js"></script> <!-- Script común que comparten todas las páginas -->
+    <script src="js/clientes.js"></script> <!-- Script específico para la gestión de clientes -->
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 id="confirm-title">Confirmar acción</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">¿Estás seguro de realizar esta acción?</p>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="confirm-cancel">Cancelar</button>
+                    <button type="button" class="btn-primary" id="confirm-ok">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
